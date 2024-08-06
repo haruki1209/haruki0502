@@ -1,0 +1,33 @@
+document.getElementById('reservationForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // フォームのデフォルト送信を防ぐ
+
+    // フォームのデータを取得
+    const userName = document.getElementById('userName').value;
+    const reservationDate = document.getElementById('reservationDate').value;
+    const reservationTime = document.getElementById('reservationTime').value;
+
+    // サーバーにPOSTリクエストを送信
+    try {
+        const response = await fetch('http://localhost:5000/reserve', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userName: userName,
+                reservationDate: reservationDate,
+                reservationTime: reservationTime
+            })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            document.getElementById('message').textContent = '予約が成功しました！';
+        } else {
+            document.getElementById('message').textContent = `予約に失敗しました: ${result.message}`;
+        }
+    } catch (error) {
+        document.getElementById('message').textContent = 'サーバーとの通信に失敗しました。';
+    }
+});
