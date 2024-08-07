@@ -1,0 +1,41 @@
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .schedule-table th,
+  .schedule-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .schedule-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .schedule-table .header {
+    background-color: #f2f2f2;
+  }
+  
+  .schedule-table .holiday {
+    background-color: #ffebcd;
+  }
+  
+  .schedule-table .saturday {
+    background-color: #add8e6;
+  }
+  
+  .schedule-table .sunday-holiday {
+    background-color: #ffcccb;
+  }
+  
+  .schedule-table td {
+    width: 50px;
+    height: 30px;
+  }
+  
+  .schedule-table th div {
+    display: block;
+  }
+  
