@@ -1,0 +1,78 @@
+import React from 'react';
+import './ScheduleTable.css';
+
+const ScheduleTable = () => {
+  const days = [
+    { date: '8/5', day: '月' },
+    { date: '8/6', day: '火' },
+    { date: '8/7', day: '水' },
+    { date: '8/8', day: '木' },
+    { date: '8/9', day: '金' },
+    { date: '8/10', day: '土', isHoliday: true, isSaturday: true },
+    { date: '8/11', day: '祝', isHoliday: true, isSundayOrHoliday: true },
+    { date: '8/12', day: '祝', isHoliday: true, isSundayOrHoliday: true },
+    { date: '8/13', day: '火' },
+    { date: '8/14', day: '水' },
+    { date: '8/15', day: '木' },
+    { date: '8/16', day: '金' },
+    { date: '8/17', day: '土', isHoliday: true, isSaturday: true },
+    { date: '8/18', day: '日', isHoliday: true, isSundayOrHoliday: true },
+  ];
+
+  const times = [
+    '9:00', '9:30', '10:00', '10:30', '11:00', '11:30',
+    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
+    '15:00', '15:30', '16:00'
+  ];
+
+  const availability = Array(times.length).fill(Array(days.length).fill('〇'));
+
+  const renderCells = () => {
+    return times.map((time, timeIndex) => (
+      <tr key={timeIndex}>
+        <th>{time}</th>
+        {days.map((day, dayIndex) => {
+          if (day.isHoliday && timeIndex === 0) {
+            return (
+              <td
+                key={`${timeIndex}-${dayIndex}`}
+                className={`holiday ${day.isSaturday ? 'saturday' : ''} ${day.isSundayOrHoliday ? 'sunday-holiday' : ''}`}
+                rowSpan={times.length}
+              >
+                休業日
+              </td>
+            );
+          } else if (day.isHoliday) {
+            return null;
+          }
+          return (
+            <td key={`${timeIndex}-${dayIndex}`}>
+              {availability[timeIndex][dayIndex]}
+            </td>
+          );
+        })}
+      </tr>
+    ));
+  };
+
+  return (
+    <table className="schedule-table">
+      <thead>
+        <tr>
+          <th>時間帯</th>
+          {days.map((day, index) => (
+            <th key={index} className={`header ${day.isSaturday ? 'saturday' : ''} ${day.isSundayOrHoliday ? 'sunday-holiday' : ''}`}>
+              <div>{day.date}</div>
+              <div>{day.day}</div>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {renderCells()}
+      </tbody>
+    </table>
+  );
+};
+
+export default ScheduleTable;
